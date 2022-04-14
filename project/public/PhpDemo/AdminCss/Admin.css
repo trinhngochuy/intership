@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Patrick+Hand&display=swap');
+:root {
+    --clr: #222327;
+    --menu: #ffffff;
+}
+
+body {
+    background: var(--clr);
+    color: white;
+    margin: 0;
+
+}
+
+.main-top {
+    display: flex;
+    justify-content: center;
+    background: var(--clr);
+    min-height: 100px;
+}
+
+.Menutop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    width: 400px;
+    background: var(--menu);
+    border-radius: 0px 0px 40px 40px;
+}
+
+.Menutop ul {
+    display: flex;
+    padding-left: 0;
+    position: relative;
+}
+
+.Menutop ul li {
+    list-style: none;
+    width: 60px;
+    height: 70px;
+    z-index: 1;
+}
+
+.Menutop ul li a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-weight: 500;
+    text-align: center;
+}
+
+.Menutop ul li a .icon {
+    display: block;
+    position: relative;
+    line-height: 75px;
+    font-size: 1.5em;
+    text-align: center;
+    transition: 0.5s;
+    color: var(--clr);
+}
+
+.Menutop ul li.active a .icon {
+    transform: translateY(40px);
+    color: deeppink;
+}
+
+.Menutop ul li a .text {
+    position: absolute;
+    color: var(--clr);
+    font-weight: 400;
+    font-size: 0.75em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    opacity: 0;
+}
+
+.Menutop ul li.active a .text {
+    transform: translateY(-5px);
+    color: deeppink;
+    opacity: 1;
+}
+
+.indicator {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: white;
+    top: 65%;
+    border-radius: 50%;
+    border: 6px solid var(--clr);
+    transition: 0.5s;
+}
+
+.indicator:before {
+    content: '';
+    position: absolute;
+    left: -19px;
+    top: -11%;
+    width: 20px;
+    height: 25px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0px 13px 0 0 var(--clr);
+}
+
+.indicator:after {
+    content: '';
+    position: absolute;
+    right: -19px;
+    top: -11%;
+    width: 20px;
+    height: 25px;
+    border-bottom-left-radius: 20px;
+    box-shadow: 0px 13px 0px 0 var(--clr);
+}
+
+.Menutop ul li:nth-child(1).active~.indicator {
+    left: 0;
+}
+
+.Menutop ul li:nth-child(2).active~.indicator {
+    left: 60px
+}
+
+.Menutop ul li:nth-child(3).active~.indicator {
+    left: 120px;
+}
+
+.Menutop ul li:nth-child(4).active~.indicator {
+    left: 180px;
+}
+
+.Menutop ul li:nth-child(5).active~.indicator {
+    left: 240px;
+}

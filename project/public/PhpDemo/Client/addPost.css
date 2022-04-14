@@ -1,0 +1,38 @@
+body{
+        font-family: 'Roboto Mono', monospace;
+}
+.form-group span{
+    color: rgb(2, 1, 1);
+}
+.infor-3 .form-group span{
+    color: rgb(2, 1, 1);
+}
+.form-group input,.form-group select, .form-group textarea{
+    background-color: white;
+    color: rgb(0, 0, 0);
+    border-bottom: 1px solid rgb(54, 43, 43);
+   }
+   .form-create{
+       margin-bottom: 10rem;
+   }
+   .error{
+       border: 1px solid black;
+       position: fixed;
+   }
+   .back-home{
+ 
+       margin: 15px;
+       width: 30px;
+       height: 30px;
+       border-radius: 100%;
+       line-height: 30px;
+       text-align: center;
+   border: 1px solid #00a672;
+   transition: all 0.5s;
+   }
+   .back-home a{
+       color: #00a672;
+   }
+   .back-home:hover{
+transform: scale(1.5);
+   }

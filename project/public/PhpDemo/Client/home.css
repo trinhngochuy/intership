@@ -1,0 +1,143 @@
+
+.item:nth-child(1){
+    grid-area: header; 
+}
+.item:nth-child(2){
+    grid-area: menu; 
+}
+.item:nth-child(3){
+    grid-area: main;
+}
+.item:nth-child(4){
+    grid-area: right;
+}
+.item:nth-child(5){
+    grid-area: footer;
+}
+.item:nth-child(6){
+    grid-area: footer6; 
+}
+.item:nth-child(7){
+    grid-area: footer7;
+}
+.item:nth-child(8){
+    grid-area: footer8;
+}
+.item:nth-child(9){
+    grid-area: footer9; 
+}
+.item:nth-child(10){
+    grid-area: footer10;
+}
+.grid-container {
+  display: grid;
+  margin: 0px auto;
+  width: 100%;
+  grid-template-areas:
+  'footer7 footer8 footer9'
+    'header header menu'
+    'right main footer '
+    ' footer10 footer6 footer6 '
+;
+justify-content: center;
+  padding-bottom: 0px;
+}
+.content{
+width: 300px;
+height: 270px;
+box-shadow: rgb(50 48 48) 0px 7px 20px 0px;
+border-radius: 20px;
+position: relative;
+}
+.contentz{
+    padding: 110px 0px;
+}
+.item{
+    transition: all 0.5s;
+}
+.item:hover .content{
+    box-shadow: rgb(61, 146, 196) 0px 7px 20px 0px;
+}
+.title{
+    padding: 20px 10px 10px 20px ;
+    color: white;
+    font-size: 20.5px;
+}
+.top-title{
+    width: 100%;
+    opacity: 0.8;
+    background: rgb(48 48 48 / 81%);
+    box-shadow: rgb(50 48 48) 0px 7px 20px 0px;
+    position: absolute;
+    border-radius: 20px;
+}
+.discription{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    font-size: 14.5px;
+    -webkit-box-orient: vertical;
+    color: white;
+    margin-left: 10px;
+}
+.grid-container > div {
+padding: 20px;
+gap: 20px;
+}
+.thumbnail{
+    width: 100%;
+    height: 100%;
+}
+.thumbnail img{
+    border-radius: 20px;
+    object-fit: cover;
+    width: 100% ;
+    height: 100%;
+
+}
+
+.watch-like{
+    position: absolute;
+    width: 100%;
+    height: 30px;
+    top: 87%;
+    display: flex;
+    justify-content: center;
+}
+.wrap{
+    width: 80%;
+display: flex;
+line-height: 30px;
+justify-content: space-between;
+}
+.watching,.like{
+    text-align: center;
+    width: 50px;
+   color: white;
+    border-radius: 4px;
+}
+.watching:hover{
+color: rgba(25, 201, 255, 0.699);
+}
+.like:hover{
+    background-color: rgba(25, 201, 255, 0.699);
+    color: white;
+}
+.like{
+    color: black;
+    background-color: white;
+}
+.like i{
+    color:rgb(235, 34, 67);
+}
+.item:nth-child(1) .content,.item:nth-child(6) .content{
+    width: 100%;
+   }
+   .item:nth-child(1) .content .top-title, .item:nth-child(6) .content .top-title{
+    width: 60%;
+    opacity: 0.8;
+    background: rgb(48 48 48 / 65%);
+   padding-bottom: 50px;
+    position: absolute;
+    border-radius: 0px;
+   }
