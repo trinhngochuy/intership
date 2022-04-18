@@ -29,6 +29,8 @@ class PostSeeder extends Seeder
                 'created_at' => '2000-01-01',
                 'updated_at' => '2000-01-01',
                 'user_id' => 1,
+                'view'=> 4350,
+                'like'=>2150,
                 'slug'=> Str::slug("Cặp mẹ con vào quán ăn chỉ gọi duy nhất 2 món, người phục vụ vừa nhìn đơn lập tức báo cảnh sát: Quá nguy hiểm!")
             ],
             [
@@ -40,6 +42,8 @@ class PostSeeder extends Seeder
                 'thumbnail' =>'https://cdn.24h.com.vn/upload/2-2022/images/2022-04-05/Bo-Cong-an-bat-giam-ong-do-Anh-Dung---Chu-tich-tap-doan-Tan-Hoang-Minh-tan-hoang-minh_dgbk-1649169534-86-width800height509.jpg',
                 'created_at' => '2000-01-01',
                 'updated_at' => '2000-01-01',
+                'view'=> 14350,
+                'like'=>8150,
                 'user_id' => 1,
                 'slug'=> Str::slug('Bộ Công an bắt giam ông Đỗ Anh Dũng - Chủ tịch tập đoàn Tân Hoàng Minh'),
             ],
@@ -52,7 +56,9 @@ class PostSeeder extends Seeder
                 'thumbnail' =>'https://cafefcdn.com/thumb_w/650/203337114487263232/2022/4/5/photo1649173749932-1649173750156711239021.jpg',
                 'created_at' => '2000-01-01',
                 'updated_at' => '2000-01-01',
-                'user_id' => 1,
+                'view'=> 6379,
+                'like'=>3333,
+            'user_id' => 1,
                 'slug'=>Str::slug('EU xem xét cấm nhập khẩu từ Nga, giá than tăng dựng đứng'),
             ],
             [
@@ -65,6 +71,8 @@ class PostSeeder extends Seeder
                 'created_at' => '2000-01-01',
                 'updated_at' => '2000-01-01',
                 'user_id' => 1,
+                'view'=> 7789,
+                'like'=>4000,
                 'slug'=>Str::slug('Sau dầu thô, châu Âu lại trống đánh xuôi, kèn thổi ngược với kim loại từ Nga')
             ],
             [
@@ -77,6 +85,8 @@ class PostSeeder extends Seeder
                 'created_at' => '2000-01-01',
                 'updated_at' => '2000-01-01',
                 'user_id' => 1,
+                'view'=> 2000,
+                'like'=>150,
                 'slug'=>Str::slug('Giá vàng hôm nay 6/4: Giá vàng lình xình, vàng thất thế'),
 
             ],
@@ -90,6 +100,8 @@ class PostSeeder extends Seeder
                 'created_at' => '2000-01-01',
                 'updated_at' => '2000-01-01',
                 'user_id' => 1,
+                'view'=> 15,
+                'like'=>13,
                 'slug'=>Str::slug('Tên tỉnh nào ở Việt Nam nghe thấy dư dả?'),
             ],       [
                 'id' => '7',
@@ -101,6 +113,8 @@ class PostSeeder extends Seeder
                 'created_at' => '2000-01-01',
                 'updated_at' => '2000-01-01',
                 'user_id' => 1,
+                'view'=> 7000,
+                'like'=>5000,
                 'slug'=>Str::slug('CHÍNH THỨC CÔNG BỐ PHƯƠNG PHÁP "XÓA SỔ" BỆNH TIỂU ĐƯỜNG'),
             ],
             [
@@ -113,6 +127,8 @@ class PostSeeder extends Seeder
                 'created_at' => '2000-01-01',
                 'updated_at' => '2000-01-01',
                 'user_id' => 1,
+                'view'=> 4350,
+                'like'=>2150,
                 'slug'=>Str::slug('Sửa thuế thu nhập cá nhân, lương 17 triệu đồng/tháng chưa phải nộp thuế'),
             ]
 

@@ -1,18 +1,26 @@
 <?php
 
+use App\Events\CreatePost;
+use App\Helpers\Libraries\RedisClient;
+use App\Helpers\Libraries\RedisQueueLib;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ImageUploadController;
+use App\Jobs\ProcessTest;
+use App\Jobs\ProcessView;
+use App\Mail\CreatePostMessage;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
+use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Redis;
@@ -73,12 +81,20 @@ Route::group(['prefix' => 'client/user', 'middleware' => 'auth'], function () {
     Route::post('/filter/categories', [\App\Http\Controllers\User\PostController::class, 'searchCategory'])->name("client.post.filter");
     Route::get('/posts', [\App\Http\Controllers\User\PostController::class, 'index'])->name("client.posts");
     Route::get('/posts/detail/{postslug}', [\App\Http\Controllers\User\PostController::class, 'postDetail'])->name("client.post.detail");
-});
-Route::get('/', function () {
-//    \Illuminate\Support\Facades\Bus::dispatch(new \App\Jobs\TestJob());
-$deletetest = \Illuminate\Support\Facades\Bus::dispatch(new \App\Jobs\TestJob());
-//    $exitCode = Artisan::call('queue:work', []);
-    Artisan::call("queue:work --stop-when-empty");
- dd($deletetest);
+    Route::post('/posts/like', [\App\Http\Controllers\User\PostController::class, 'likePost'])->name("client.post.like");
 });
 
+Route::get('/', function () {
+
+//    Mail::to("demo@gmail.com")->send(new CreatePostMessage());
+//    dd("Email is Sent.");
+    return view('Mail.create-post');
+});
+//    $arr= RedisQueueLib::getArrayQueue(env("QUEUE_LIKE"));
+//
+//    foreach ($arr as $item){
+//        $data = json_decode($item["data"],TRUE);
+//        $cases[] = " WHEN {$data["post_id"]} then `like` + 1";
+//    }
+//    $new = implode(' ', $cases);
+//    DB::update("UPDATE posts SET `like` = CASE `id` {$new} ELSE `like` END");

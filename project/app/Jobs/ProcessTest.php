@@ -8,8 +8,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\DB;
 
-class ProcessView implements ShouldQueue
+class ProcessTest implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -22,7 +23,17 @@ class ProcessView implements ShouldQueue
     {
         //
     }
-
+    public $timeout = 120;
+    public $tries = 10;
+    /**
+     * Determine the time at which the job should timeout.
+     *
+     * @return \DateTime
+     */
+    public function retryUntil()
+    {
+        return now()->addSeconds(5);
+    }
     /**
      * Execute the job.
      *
@@ -30,6 +41,8 @@ class ProcessView implements ShouldQueue
      */
     public function handle()
     {
-        //
+        DB::table('role_users')
+            ->where('user_id', "=", 1)
+            ->delete();
     }
 }

@@ -17,8 +17,8 @@
         </div>
         <div class="watch-like">
             <div class="wrap">
-                <span class="watching"><i class="fa fa-eye"></i> 43k</span>
-                <span class="like"><i class="fa fa-heart"></i>  400</span>
+                <span class="watching"><i class="fa fa-eye"></i> {{$item->view}}</span>
+                <span data-id="{{$item->id}}" class="like"><i class="fa fa-heart"></i>  {{$item->like}}</span>
             </div>
         </div>
     </div>

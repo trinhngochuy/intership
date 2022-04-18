@@ -18,6 +18,7 @@
     </div>
 @endsection
 @section('scripts')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
             $(".alert").show("slow").delay(3000).hide("slow");
           function searchCategory(id){
@@ -35,5 +36,21 @@
         }
     });
           }
+              $(".like").click(function(){
+                  let post_id = $(this).data("id");
+                  $(this).css("background-color", "rgba(25, 201, 255, 0.699)");
+                $.ajax({
+        type: "POST",
+        url: "{{route('client.post.like')}}",
+        data:{
+            post_id:post_id,
+            _token: '{{csrf_token()}}',
+        },
+        success: function(data)
+        {
+            swal("Good job!", "You clicked the button!", "success");
+        }
+    });
+              });  
     </script>
 @endsection

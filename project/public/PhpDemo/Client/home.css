@@ -112,8 +112,8 @@ justify-content: space-between;
 }
 .watching,.like{
     text-align: center;
-    width: 50px;
    color: white;
+   display: inline;
     border-radius: 4px;
 }
 .watching:hover{
@@ -122,6 +122,7 @@ color: rgba(25, 201, 255, 0.699);
 .like:hover{
     background-color: rgba(25, 201, 255, 0.699);
     color: white;
+    cursor: pointer;
 }
 .like{
     color: black;

@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\User;
+use App\Events\CreatePost;
+use App\Helpers\Libraries\RedisQueueLib;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostStore;
 use App\Models\Category;
 use App\Models\Post;
 use App\Repository\PostRebository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +32,16 @@ class PostController extends Controller
         $categories = Category::all();
         return view("Client.MyPost", ["posts" => $posts, "categories_filter" => $categories]);
     }
-
+public function likePost(){
+    $data = [
+        "ip"=>gethostname(),
+        "user_id"=>Auth::user()->id,
+        "post_id"=>$this->data["post_id"],
+        "created_at"=>Carbon::now()->format('Y-m-d H:i:s'),
+    ];
+    RedisQueueLib::push(env("QUEUE_LIKE"),"array","push",$data);
+        return $this->data;
+}
     public function searchMyPost(Request $request)
     {
         $user = Auth::user();
@@ -78,16 +90,16 @@ class PostController extends Controller
     }
     public function createPost(PostStore $request)
     {
+
         try {
             $post = $this->postRepository->createPost($request->all());
+            event(new CreatePost(Auth::user()->email));
         } catch (Throwable $e) {
             report($e);
             return redirect()->route("client.posts")->with('message', 'created Fail!')->with("error", " ");
 
         }
         return redirect()->route("client.posts")->with('message', 'created successful!');
-
-
     }
 
     public function index()
@@ -101,6 +113,13 @@ class PostController extends Controller
     {
         $postslug = Route::getCurrentRoute()->parameter("postslug");
         $post = Post::where('slug', 'Like', '%' . $postslug . '%')->get();
+        $data = [
+            "ip"=>gethostname(),
+            "user_id"=>Auth::user()->id,
+            "post_id"=>$post[0]->id,
+            "created_at"=>Carbon::now()->format('Y-m-d H:i:s'),
+        ];
+        RedisQueueLib::push(env("QUEUE_VIEW"),"array","push",$data);
         $posts = Post::where("category_id", "=", $post[0]->category_id)->take(3)->get();
        return view("Client.Post_Detail", ["post" => $post, "posts" => $posts]);
     }
