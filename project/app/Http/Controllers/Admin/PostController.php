@@ -29,13 +29,12 @@ class PostController extends Controller
 
     public function index()
     {
-        if (Gate::allows('list-post-admin')) {
-            $categories = Category::all();
-            $posts = Post::all();
-            return view("ListAdmin.List", ["posts" => $posts, 'categories' => $categories]);
-        }else{
+        if (Gate::denies('list-post-admin')) {
             abort(403);
         }
+        $categories = Category::all();
+        $posts = Post::all();
+        return view("ListAdmin.List", ["posts" => $posts, 'categories' => $categories]);
     }
     public function search(Request $data)
     {
@@ -45,17 +44,18 @@ class PostController extends Controller
 
     public function deleteView()
     {
-        if (Gate::allows('delete-post')) {
-            $id = $this->data["id"];
-            return view("viewAlert.delete", ["id" => $id]);
-        }else{
+        if (Gate::denies('delete-post')) {
             abort(403);
         }
+        $id = $this->data["id"];
+        return view("viewAlert.delete", ["id" => $id]);
     }
 
     public function deleteSoft()
     {
-        if (Gate::allows('delete-post')) {
+        if (Gate::denies('delete-post')) {
+            abort(403);
+        }
         $post = Post::find($this->data["id"]);
         try {
             $post->delete();
@@ -63,39 +63,36 @@ class PostController extends Controller
             return redirect("/admin/posts/list")->with('message', 'Delete Fail!')->with("error", " ");
         }
         return redirect("/admin/posts/list")->with('message', 'Delete Successful!');
-        }else{
-            abort(403);
-        }
     }
 
     public function create()
     {
-        if (Gate::allows('create-post')) {
-            $categories = Category::all();
-            return view("CreateAdmin.create", ['categories_create' => $categories]);
-        }else{
+        if (Gate::denies('create-post')) {
             abort(403);
         }
+        $categories = Category::all();
+        return view("CreateAdmin.create", ['categories_create' => $categories]);
     }
 
     public function updateView(Request $request)
     {
-        if (Gate::allows('update-post')) {
-            $post = null;
-            $postId = Route::getCurrentRoute()->parameter("postId");
-            if ($postId != null) {
-                $post = Post::find($postId);
-            }
-            $categories = Category::all();
-            $link = route("admin.post.update");
-            return view("CreateAdmin.create", ["categories_create" => $categories, "link" => $link, "post" => $post]);
-        } else {
+        if (Gate::denies('update-post')) {
             abort(403);
         }
+        $post = null;
+        $postId = Route::getCurrentRoute()->parameter("postId");
+        if ($postId != null) {
+            $post = Post::find($postId);
+        }
+        $categories = Category::all();
+        $link = route("admin.post.update");
+        return view("CreateAdmin.create", ["categories_create" => $categories, "link" => $link, "post" => $post]);
     }
     public function updatePost(PostStore $request)
     {
         if (Gate::allows('update-post')) {
+            abort(403);
+        }
         try {
             $post = Post::find($request->id);
             if ($post!=null){
@@ -108,24 +105,20 @@ class PostController extends Controller
             return redirect()->route("admin.post.list")->with('message', 'Update Fail!')->with("error", " ");
         }
         return redirect()->route("admin.post.list")->with('message', 'Update successful!');
-        } else {
-            abort(403);
-        }
     }
 
     public function createPost(PostStore $request)
     {
-        if (Gate::allows('create-post')) {
+        if (Gate::denies('create-post')) {
+            abort(403);
+        }
         try {
             $post = $this->postRepository->createPost($request->all());
         } catch (Throwable $e) {
             report($e);
             return redirect()->route("admin.post.list")->with('message', 'created Fail!')->with("error", " ");
         }
-        return redirect()->route("admin.post.list")->with('message', 'created successful!');}
-        else{
-            abort(403);
-        }
+        return redirect()->route("admin.post.list")->with('message', 'created successful!');
     }
 
 }

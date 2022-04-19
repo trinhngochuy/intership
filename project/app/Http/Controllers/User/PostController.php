@@ -32,7 +32,8 @@ class PostController extends Controller
         $categories = Category::all();
         return view("Client.MyPost", ["posts" => $posts, "categories_filter" => $categories]);
     }
-public function likePost(){
+public function likePost()
+{
     $data = [
         "ip"=>gethostname(),
         "user_id"=>Auth::user()->id,
@@ -46,11 +47,12 @@ public function likePost(){
     {
         $user = Auth::user();
         $posts = Post::query()
+            ->where("user_id", "=", $user->id)
             ->search($request)
             ->startDate($request)
+
             ->endDate($request)
-            ->category($request)
-            ->where("user_id", "=", $user->id)->get();
+            ->category($request)->get();
         return view("Client.PartalView.search", ["posts" => $posts]);
     }
 

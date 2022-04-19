@@ -53,10 +53,6 @@ public function updateAccount($data,$user){
     if($user!=null){
         $user->update($dataInsert);
         if(isset($data["role_user"])){
-            DB::table('role_users')
-                ->where('user_id',"=", $user->id)
-                ->where('role_id',"=",1)
-                ->delete();
             DB::insert('insert into role_users (role_id, user_id) values (?, ?)', [1, $user->id]);
         }else{
             DB::table('role_users')
@@ -80,12 +76,7 @@ public function updateAccount($data,$user){
 public function getUser($data,$update,$userfind=null): ?User
 {
     try {
-        if ($update==true){
-            $user = $userfind;
-        }else{
-            $user = new User();
-        }
-
+        $user = ($update) ? $userfind : new User();
         isset($data["password"]) ? $user->setPasswordAttribute($data["password"]) : $user->password = "";
         if (isset($data["birthday"])) {
             $date = strtotime($data["birthday"]);
