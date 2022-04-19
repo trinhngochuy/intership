@@ -52,27 +52,28 @@ public function updateAccount($data,$user){
     ];
     if($user!=null){
         $user->update($dataInsert);
-        if(isset($data["role_user"])){
-            DB::insert('insert into role_users (role_id, user_id) values (?, ?)', [1, $user->id]);
-        }else{
-            DB::table('role_users')
-                ->where('user_id',"=", $user->id)
-                ->where('role_id',"=",1)
-                ->delete();
-        }
-        if(isset($data["role_admin"])){
-            DB::insert('insert into role_users (role_id, user_id) values (?, ?)', [2, $user->id]);
-        }else{
-            DB::table('role_users')
-                ->where('user_id',"=", $user->id)
-                ->where('role_id',"=",2)
-                ->delete();
-        }
+        $data["role_admin"] = isset($data["role_admin"])?$data["role_admin"]:null;
+        $data["role_user"] = isset($data["role_user"])?$data["role_user"]:null;
+      $this->updateRoleUser($data["role_admin"],$user,2);
+      $this->updateRoleUser($data["role_user"],$user,1);
     }
 
     return $user;
 }
-
+public function updateRoleUser($data,$user,$roleId){
+    if(!is_null($data)){
+        DB::table('role_users')
+            ->where('user_id',"=", $user->id)
+            ->where('role_id',"=",$roleId)
+            ->delete();
+        DB::insert('insert into role_users (role_id, user_id) values (?, ?)', [$roleId, $user->id]);
+    }else{
+        DB::table('role_users')
+            ->where('user_id',"=", $user->id)
+            ->where('role_id',"=",$roleId)
+            ->delete();
+    }
+}
 public function getUser($data,$update,$userfind=null): ?User
 {
     try {
