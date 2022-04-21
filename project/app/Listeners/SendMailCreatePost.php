@@ -17,9 +17,8 @@ class SendMailCreatePost
      */
     public function __construct()
     {
-        //
-    }
 
+    }
     /**
      * Handle the event.
      *
@@ -28,6 +27,6 @@ class SendMailCreatePost
      */
     public function handle(CreatePost $event)
     {
- Bus::dispatch(new SendMailJob($event->email));
+ Bus::dispatch(new SendMailJob($event->post,$event->user));
     }
 }

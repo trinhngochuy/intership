@@ -11,7 +11,7 @@
     <div class="alert alert-success" role="alert">
         {{ session('message') }}
         @if (session('error'))
-        <i class="fa fa-circle-exclamation"></i> 
+        <i class="fa fa-circle-exclamation"></i>
         @else
         <i class="fa fa-circle-check success"></i>
         @endif
@@ -26,28 +26,33 @@
         <table id="table">
             <tr class="header-row">
                 <th class="header-item items">
-                   ID
+                  @lang('admin.id')
                 </th>
                 <th class="header-item items">
-                  Title
+                    @lang('admin.title')
+
                 </th>
                  <th class="header-item items">
-                    Category
+                    @lang('admin.category')
+
                  </th>
                  <th class="header-item items">
-                    Thumbnail
+                     @lang('admin.thumbnail')
+
                  </th>
                  <th class="header-item items">
-                    Create At
+                     @lang('admin.create_at')
+
                  </th>
                  <th class="header-item items">
-                    Update At
+                     @lang('admin.update_at')
+
                  </th>
                  <th class="header-item items">
-                   Action
+                    @lang('admin.action')
                  </th>
             </tr>
-            
+
                 @foreach ($posts as $p)
                 <tr class="table-rows">
                 <td class="items">
@@ -81,7 +86,7 @@
         </table>
     </div>
         <div class="search-box">
-            <span>Search: </span>
+            <span>@lang("admin.search"): </span>
             <input class="search-input" id="Search" name="key" type="text" value="" />
         </div>
         {{-- <div class="action-box">
@@ -92,7 +97,7 @@
         </div> --}}
    <a href="{{route('admin.post.create.get')}}">
     <div class="action-add">
-        <span>Create <i class="fa-solid fa-plus"></i></span>
+        <span>@lang("admin.create") <i class="fa-solid fa-plus"></i></span>
           </div>
    </a>
     </div>
@@ -110,7 +115,7 @@
         data: {
             id: id,
             _token: '{{csrf_token()}}'
-        }, 
+        },
         success: function(data) {
           $(".delete-container").html(data);
           $(".cancel").click(function(e){

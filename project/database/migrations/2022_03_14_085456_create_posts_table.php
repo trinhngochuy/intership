@@ -18,8 +18,8 @@ class CreatePostsTable extends Migration
             $table->string("title");
             $table->text("description");
             $table->text("content");
-            $table->Integer("view");
-            $table->Integer("like");
+            $table->Integer("view")->default(0);
+            $table->Integer("like")->default(0);
             $table->string("thumbnail");
             $table->unsignedBigInteger("category_id");
             $table->foreign('category_id')->references('id')->on('categories');

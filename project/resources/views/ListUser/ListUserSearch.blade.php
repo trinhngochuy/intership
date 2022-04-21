@@ -1,36 +1,36 @@
 <table id="table">
    <tr class="header-row">
        <th class="header-item items">
-<input type="checkbox" id="all">  Select All
+<input type="checkbox" id="all">  @lang('admin.select-all')
 <div class="menu"id="menu-buttom">
    <i  class="fa-solid fa-chevron-down"></i>
    <div class="menus">
       <div class="menu-item" onclick="deleteAll()">
-         Delete All
+      @lang('admin.delete-all')
       </div>
    </div>
 </div>
        </th>
        <th class="header-item items">
-           User Name
+           @lang('admin.user-name')
         </th>
         <th class="header-item items">
-           Roles
+           @lang('admin.roles')
         </th>
         <th class="header-item items">
-          Name
+          @lang('admin.name')
         </th>
         <th class="header-item items">
-           Email
+           @lang('admin.email')
         </th>
         <th class="header-item items">
-           Date of Birth
+          @lang('admin.date-of-birth')
         </th>
         <th class="header-item items">
-           Status
+           @lang('admin.status')
         </th>
         <th class="header-item items">
-          Action
+          @lang('admin.action')
         </th>
    </tr>
 @foreach ($users as $user)
@@ -43,7 +43,7 @@
 <div class="ifor">
 <img src="{{$user->thumbnail}}" alt="">
 <div class="alert-copy">
-    click coppy
+    @lang('admin.click-coppy')
 </div>
 <div class="user-name">
 {{$user->user_name}}
@@ -66,7 +66,7 @@
  <td class="items">
     <div class="ifor">
     <div class="alert-copy">
-        click coppy
+      @lang('admin.click-coppy')
     </div>
     <div class="email">
         <span>{{$user->email}}</span>
@@ -79,10 +79,10 @@
  <td class="items" onclick="changeStatus({{$user->id}})">
     @if ($user->status == 0)
     <i class="fa-solid fa-lock"></i>
-    <span>Lock</span>
+    <span>@lang('admin.lock')</span>
     @else   
     <i class="fa-solid fa-lock-open"></i>
-    <span>Unlock</span>
+    <span>@lang('admin.unlock')</span>
     @endif
 </td>
  <td class="items">

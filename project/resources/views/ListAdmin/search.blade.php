@@ -1,27 +1,32 @@
 <table id="table">
-   <tr class="header-row">
-       <th class="header-item items">
-          ID
-       </th>
-       <th class="header-item items">
-         Title
-       </th>
-        <th class="header-item items">
-           Category
-        </th>
-        <th class="header-item items">
-         Thumbnail
-      </th>
-        <th class="header-item items">
-           Create At
-        </th>
-        <th class="header-item items">
-           Update At
-        </th>
-        <th class="header-item items">
-          Action
-        </th>
-   </tr>
+          <tr class="header-row">
+                <th class="header-item items">
+                  @lang('admin.id')
+                </th>
+                <th class="header-item items">
+                    @lang('admin.title')
+
+                </th>
+                 <th class="header-item items">
+                    @lang('admin.category')
+
+                 </th>
+                 <th class="header-item items">
+                     @lang('admin.thumbnail')
+
+                 </th>
+                 <th class="header-item items">
+                     @lang('admin.create_at')
+
+                 </th>
+                 <th class="header-item items">
+                     @lang('admin.update_at')
+
+                 </th>
+                 <th class="header-item items">
+                    @lang('admin.action')
+                 </th>
+            </tr>
    
    @foreach ($posts as $p)
    <tr class="table-rows">

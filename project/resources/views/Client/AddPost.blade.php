@@ -34,11 +34,11 @@
 <input type="hidden" value="{{$post->id}}" name="id">
 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 <div class="form-group">
-  <span>Title: </span>
+  <span>@lang('client.title'): </span>
   <input type="text" value="{{$post->title}}" name="title">
 </div>
 <div class="form-group">
-  <span>Description: </span>
+  <span>@lang('client.description'): </span>
   <textarea name="description" id="" cols="30" rows="10">
       {{$post->description}}
   </textarea>
@@ -46,22 +46,22 @@
 
 <div class="infor-3">
   <div class="form-group">
-      <span>Post Day: </span>
+      <span>@lang('client.post-day'): </span>
   <input type="text" id="datepicker" autocomplete="off" value="{{formatDate($post->created_at)}}" name="created_at" placeholder="Click here to chose">
       <input  type="hidden" name="updated_at" value="{{  now() }}">
   </div>
   <div class="form-group">
-   <span>Thumbnail: </span>
+   <span>@lang('client.thumbnail'): </span>
    <input type="button" class="upimg" value="Update">
       <input type="file"  class="thumbnail" name="image">
   </div>
   <div class="form-group">
-   <span>Category: </span>
+   <span>@lang('client.category'): </span>
    <select name="category_id">
       @foreach ($categories_create as $category)
       <option value="{{$category->id}}" {{$post->category_id == $category->id ? "selected" : ""}}>{{$category->name}}</option>   
       @endforeach
-    <option value="">None</option>
+    <option value="">@lang('client.none')</option>
    </select>
   </div>
   
@@ -70,18 +70,18 @@
   <img id="thumbnail_image" src="{{$post->thumbnail}}" alt="">
 </div>
 <div class="form-group content">
-<span>Content: </span>
+<span>@lang('client.content'): </span>
 <div id="editor">
 <textarea name="content"   id="editor-content">
  
 </textarea>
 </div>
 </div>
-<input type="submit" class="submit" value="Update">
+<input type="submit" class="submit" value="@lang('client.update')">
 @include('js.ExistPost')
 @else
 @include('CreateAdmin.content_create') 
-<input type="submit" class="submit" value="Create">
+<input type="submit" class="submit" value="@lang('client.create')">
 <script>
     ClassicEditor
    .create( document.querySelector( '#editor-content' ))

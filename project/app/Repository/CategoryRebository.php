@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 
 class CategoryRebository
 {
@@ -23,31 +24,32 @@ class CategoryRebository
     }
     public function updateCategory($data)
     {
-         $this->treeArray($data, 0);
-        return  $this->getTreeArray();
+        $result = $this->treeArray($data, 0);
+        return  $result;
     }
-
-
-    public function treeArray($data, $parentId = 0,$maxValueOffset=0)
+    public function treeArray($data, $parentId = 0)
     {
-      if ($maxValueOffset==0){
-          $maxValueOffset = Category::min('offset');
-      }
+        $maxValueOffset = Category::max('offset');
         foreach ($data as $item) {
             $id = $item['category_id'];
             $category = Category::find($id);
            if ($parentId!=$category->id){
-               $category->parent_id = $parentId;
+               $cases[] = " WHEN {$id} then  {$parentId}";
            }else{
-               return null;
+               return false;
            }
-            $category->offset = $maxValueOffset++;
-            $category->update();
+            $cases_offset[]= " WHEN {$id} then  {$maxValueOffset}";
             $Children = (isset($item['children'])) ? $item['children'] : false;
             if ($Children) {
                 $this->treeArray($Children, $id);
             }
+            $maxValueOffset++;
         }
+        $new = implode(' ', $cases);
+        $new_offset = implode(' ', $cases_offset);
+        DB::update("UPDATE categories SET `parent_id` = CASE `id` {$new} ELSE `parent_id` END");
+        DB::update("UPDATE categories SET `offset` = CASE `id` {$new_offset} ELSE `offset` END");
+        return true;
     }
 
     public function getTreeArray()
@@ -56,3 +58,23 @@ class CategoryRebository
         return $categories;
     }
 }
+//code update cate_old
+//if ($maxValueOffset==0){
+//    $maxValueOffset = Category::min('offset');
+//}
+//foreach ($data as $item) {
+//    $id = $item['category_id'];
+//    $category = Category::find($id);
+//    if ($parentId!=$category->id){
+//        $category->parent_id = $parentId;
+//    }else{
+//        return false;
+//    }
+//    $category->offset = $maxValueOffset++;
+//    $category->update();
+//    $Children = (isset($item['children'])) ? $item['children'] : false;
+//    if ($Children) {
+//        $this->treeArray($Children, $id);
+//    }
+//}
+//return true;

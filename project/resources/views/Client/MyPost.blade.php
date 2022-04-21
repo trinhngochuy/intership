@@ -15,11 +15,11 @@
             <div class="add-post">
                 <a href="{{route('client.post.create.get')}}">
                     <i class="fa fa-plus"></i>
-                  Add
+                  @lang('client.add')
                 </a>
             </div>
             <div class="title">
-                <h1>My Posts</h1>
+                <h1>@lang('client.my-post')</h1>
             </div>
         </div>
         <div class="posts">
@@ -29,28 +29,28 @@
     </div>
 <div class="filter">
     <div class="title">          
-        <h1>My Filter</h1>
+        <h1>@lang('client.my-filter')</h1>
     </div>
     <div class="this-filter">          
      <div class="filter-group">
-         <span>Search: </span>
+         <span>@lang('client.search'): </span>
          <input name="search" type="text">
      </div>
      <div class="filter-group">
-        <span>Start Date: </span>
+        <span>@lang('client.start-date'): </span>
         <input autocomplete="off" name="start" class="datepicker" type="text">
     </div>
     <div class="filter-group">
-        <span>End Date: </span>
+        <span>@lang('client.end-date'): </span>
         <input autocomplete="off" name="end" class="datepicker" type="text">
     </div>
     <div class="filter-group">
-        <span>Categories: </span>
+        <span>@lang('client.category'): </span>
  <select name="category" id="">
 @foreach ($categories_filter as $category)
 <option value="{{$category->id}}">{{$category->name}}</option>
 @endforeach
-<option value="" selected>All</option>
+<option value="" selected>@lang('client.all')</option>
  </select>
     </div>
     </div>

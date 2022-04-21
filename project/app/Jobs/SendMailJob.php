@@ -3,26 +3,30 @@
 namespace App\Jobs;
 
 use App\Mail\CreatePostMessage;
+use http\Client\Curl\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class SendMailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-private $email;
+public $post;
+public $user;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($email)
+    public function __construct($post,$user)
     {
-        $this->email = $email;
+        $this->user = $user;
+        $this->post = $post;
     }
 
     /**
@@ -32,6 +36,7 @@ private $email;
      */
     public function handle()
     {
-        Mail::to($this->email)->send(new CreatePostMessage());
+
+        Mail::to("test@gmail.com.vn")->send(new CreatePostMessage($this->user,$this->post));
     }
 }

@@ -39,44 +39,44 @@
         <div class="first-last">
             <div class="form-group">
                 <input type="hidden"value="" name="user_id" >
-                <input type="text" placeholder="First Name" name="first_name">
+                <input type="text" placeholder="@lang('admin.first')" name="first_name">
             </div>
             <div class="form-group">
-                <input type="text"  placeholder="Last Name" name="last_name">
-            </div>
-        </div>
-        <div class="first-last">
-            <div class="form-group">
-                <input type="text" placeholder="User Name" name="user_name">
-            </div>
-            <div class="form-group">
-                <input type="password"  placeholder="Password" name="password">
+                <input type="text"  placeholder="@lang('admin.last')" name="last_name">
             </div>
         </div>
         <div class="first-last">
             <div class="form-group">
-                <input type="email" placeholder="Email" name="email">
+                <input type="text" placeholder="@lang('admin.user-name')" name="user_name">
             </div>
             <div class="form-group">
-                <input type="password" name="config_password" placeholder="Config Password">
+                <input type="password"  placeholder="@lang('admin.password')" name="password">
             </div>
         </div>
         <div class="first-last">
             <div class="form-group">
-                <input  type="text" autocomplete="off" max="{{now()}}" id="datepicker" placeholder="Birth Day" name="birthday">
+                <input type="email" placeholder="@lang('admin.email')" name="email">
+            </div>
+            <div class="form-group">
+                <input type="password" name="config_password" placeholder="@lang('admin.config-password')">
+            </div>
+        </div>
+        <div class="first-last">
+            <div class="form-group">
+                <input  type="text" autocomplete="off" max="{{now()}}" id="datepicker" placeholder="@lang('admin. ')" name="birthday">
             </div>
         </div>
         <div class="roles">
             <div class="title">
-                ROLES
+                @lang('admin.roles')
             </div>
         <div class="chose-role">
             <div class="role">
-                <span>Admin</span>
+                <span>@lang('admin.admin')</span>
                 <input type="checkbox" name="role_admin" value="2">
             </div>
             <div class="role">
-                <span>User</span>
+                <span>@lang('admin.user')</span>
                 <input type="checkbox" name="role_user" value="1">
             </div>
         </div>
@@ -94,7 +94,7 @@
         @include('ListUser.ListUserSearch')
     </div>
         <div class="search-box">
-            <span>Search: </span>
+            <span>@lang('admin.search'): </span>
             <input class="search-input" id="Search" name="key" type="text" value="" />
         </div>
         {{-- <div class="action-box">
@@ -105,7 +105,7 @@
         </div> --}}
         <a href="#ex1" rel="modal:open">
     <div class="action-add">
-        <span><i class="fa-solid fa-user-plus"></i>Add New User</span>
+        <span><i class="fa-solid fa-user-plus"></i>@lang('admin.add-new-user')</span>
           </div>
    </a>
     </div>

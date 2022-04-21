@@ -10,10 +10,10 @@
 @endsection
 @section('body')
 <div id="ex1" class="modal">
-    <p>Create Category. . .</p>
+    <p>@lang('admin.create-category'). . .</p>
 <div class="create-category">
 <input name="category" type="text" placeholder="Category Name">
-<button id="create-category">Submit</button>
+<button id="create-category">@lang('admin.create')</button>
 </div>
   </div>
   
@@ -21,7 +21,7 @@
 <div class="container">
 <div class="main"> 
      <a href="#ex1" rel="modal:open" class="add_category">
-    <i class="fa fa-plus"></i> Open Modal
+    <i class="fa fa-plus"></i>@lang('admin.create')
 </a>
 
 
@@ -117,7 +117,7 @@ var arr='';
         }
     }).always(function (response) {
 
-         $(".dd-list").html(response);
+         //$(".dd-list").html(response);
     });
     };
 

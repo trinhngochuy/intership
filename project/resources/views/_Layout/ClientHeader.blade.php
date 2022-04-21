@@ -1,3 +1,4 @@
+@include('_Layout.lang-view')
 <div class="Menu">
 <div class="menu-content">
     <div class="menu-left">
@@ -14,7 +15,7 @@
         <span class="icon-search">
             <i class="fa fa-magnifying-glass"></i>
         </span>
-        <input  autocomplete="off" placeholder="Tìm kiếm theo chủ đề và tiêu đề" class="search" name="key" type="text">
+        <input  autocomplete="off" placeholder="@lang('client-header.search')" class="search" name="key" type="text">
         <div class="sugest">  
         </div>
     </div>
@@ -29,7 +30,7 @@
 <span>{{Auth::user()->first_name}}{{Auth::user()->last_name}}</span>
 <div class="status">
 <i class="fa fa-circle-dot"></i> 
-online
+@lang('client-header.status')
 </div>
     </div>
     <div class="log-out">
@@ -39,7 +40,7 @@ online
 @else
 <div class="user-infor">
 <div class="login">
-    <a href="/register">Sign in</a> / <a href="/login">Sign up</a>
+    <a href="/register">@lang('client-header.sign-in')</a> / <a href="/login">@lang('client-header.sign-up')</a>
 </div>
 </div>
    @endif
@@ -55,19 +56,19 @@ online
 </li>
  @endforeach
  <li onclick="searchCategory()">
-    All
+    @lang('client-header.all')
   </li>
   @if (Auth::user() !=null)
   <li>
       <a href="{{route('client.post.my.get',["userid"=>Auth::user()->id])}}">
-              My Post
+             @lang('client-header.my-post')
       </a>
   </li>
   @endif
   @can('list-post-admin')
   <li>
     <a href="{{route('admin.post.list')}}">
-          Admin Client
+          @lang('client-header.admin-client')
     </a>
 </li>
   @endcan
@@ -78,3 +79,4 @@ online
 
 </div>
 @include('js.ClientHeader')
+@include('js.lang')

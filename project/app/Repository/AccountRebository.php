@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -40,7 +41,6 @@ public function updateAccount($data,$user){
     $user = $this->getUser($data,true,$user);
     $dataInsert =[
         'user_name'=>$user->user_name,
-        'password'=>$user->password,
         'first_name'=>$user->first_name,
         'last_name'=>$user->last_name,
         'email'=>$user->email,
@@ -56,8 +56,9 @@ public function updateAccount($data,$user){
         $data["role_user"] = isset($data["role_user"])?$data["role_user"]:null;
       $this->updateRoleUser($data["role_admin"],$user,2);
       $this->updateRoleUser($data["role_user"],$user,1);
+        $cacheKey = "permission_ids_".$user->id;
+      Cache::forget($cacheKey);
     }
-
     return $user;
 }
 public function updateRoleUser($data,$user,$roleId){
@@ -67,6 +68,7 @@ public function updateRoleUser($data,$user,$roleId){
             ->where('role_id',"=",$roleId)
             ->delete();
         DB::insert('insert into role_users (role_id, user_id) values (?, ?)', [$roleId, $user->id]);
+
     }else{
         DB::table('role_users')
             ->where('user_id',"=", $user->id)
@@ -78,7 +80,7 @@ public function getUser($data,$update,$userfind=null): ?User
 {
     try {
         $user = ($update) ? $userfind : new User();
-        isset($data["password"]) ? $user->setPasswordAttribute($data["password"]) : $user->password = "";
+
         if (isset($data["birthday"])) {
             $date = strtotime($data["birthday"]);
             $user->birth_day = date('Y-m-d H:i:s', $date);
@@ -91,6 +93,7 @@ public function getUser($data,$update,$userfind=null): ?User
         isset($data["user_name"]) ? $user->user_name = $data["user_name"] : $user->user_name = "";
         isset($data["status"]) ? $user->status = $data["status"] : $user->status = 1;
        if ($update==false){
+           isset($data["password"]) ? $user->setPasswordAttribute($data["password"]) : $user->password = "";
            isset($data["image"]) ? $user->thumbnail = $this->uploadImage($data) : $user->thumbnail = User::$default_thumbnail_url;
        }else{
           if ( isset($data["image"])){

@@ -27,7 +27,8 @@ class CategoryController extends Controller
     public function updateCategoryPost()
     {
         $result = $this->categoryRepository->updateCategory($this->data["data"]);
-        return view("List.list-parent-category",["categories"=>$result]);
+       // return view("List.list-parent-category",["categories"=>$result]);
+        return $result;
     }
     public function deleteCategory(){
         $category = Category::find($this->data["category_id"])->delete();

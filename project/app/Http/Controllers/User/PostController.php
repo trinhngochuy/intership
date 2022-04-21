@@ -92,10 +92,12 @@ public function likePost()
     }
     public function createPost(PostStore $request)
     {
-
         try {
             $post = $this->postRepository->createPost($request->all());
-            event(new CreatePost(Auth::user()->email));
+            if (is_null($post)) {
+                return redirect()->route("client.posts")->with('message', 'created Fail!')->with("error", " ");
+            }
+            event(new CreatePost($post,Auth::user()));
         } catch (Throwable $e) {
             report($e);
             return redirect()->route("client.posts")->with('message', 'created Fail!')->with("error", " ");
@@ -115,15 +117,18 @@ public function likePost()
     {
         $postslug = Route::getCurrentRoute()->parameter("postslug");
         $post = Post::where('slug', 'Like', '%' . $postslug . '%')->get();
-        $data = [
-            "ip"=>gethostname(),
-            "user_id"=>Auth::user()->id,
-            "post_id"=>$post[0]->id,
-            "created_at"=>Carbon::now()->format('Y-m-d H:i:s'),
-        ];
-        RedisQueueLib::push(env("QUEUE_VIEW"),"array","push",$data);
-        $posts = Post::where("category_id", "=", $post[0]->category_id)->take(3)->get();
-       return view("Client.Post_Detail", ["post" => $post, "posts" => $posts]);
+if (!is_null($post)){
+    $data = [
+        "ip"=>gethostname(),
+        "user_id"=>Auth::user()->id,
+        "post_id"=>$post[0]->id,
+        "created_at"=>Carbon::now()->format('Y-m-d H:i:s'),
+    ];
+    RedisQueueLib::push(env("QUEUE_VIEW"),"array","push",$data);
+    $posts = Post::where("category_id", "=", $post[0]->category_id)->take(3)->get();
+    return view("Client.Post_Detail", ["post" => $post, "posts" => $posts]);
+}
+        return redirect()->back();
     }
 
     public function search()

@@ -104,7 +104,7 @@ $(".items").click(function(){
     } 
   $(".action-add").click(function(){
     cleanInput();
-$(".submit").text("Create");
+$(".submit").text("@lang('admin.create')");
 $("input[name=user_name]").removeAttr("readonly");
 $("input[name=password]").removeAttr("readonly");
 $("input[name=config_password]").removeAttr("readonly");
@@ -117,7 +117,7 @@ function cleanInput(){
 }
 function changeUser(id){
     cleanInput();
-$(".submit").text("Save Change");
+$(".submit").text("@lang('admin.save-change')");
 $("input[name=user_name]").attr("readonly","");
 $("input[name=password]").attr("readonly","");
 $("input[name=config_password]").attr("readonly","");

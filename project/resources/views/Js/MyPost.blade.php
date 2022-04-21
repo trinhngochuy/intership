@@ -36,7 +36,7 @@
   }
 function deletePost(id){
     $(".remove-post").click(function(event) {
-       var parent =  $(this).parent('.post');
+       var parent =  $(this).parent().parent('.post');
   swal({
     title: "Are you sure?",
     text: "Once deleted, you will not be able to recover this imaginary file!",
@@ -55,6 +55,7 @@ function deletePost(id){
                 },
                 success: function(data)
                 {
+                  console.log(parent);
                     parent.remove();
                     swal(" Your file has been deleted!", {
                     icon: "success",

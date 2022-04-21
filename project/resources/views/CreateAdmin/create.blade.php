@@ -30,11 +30,11 @@
   @if(isset($post))  
   <input type="hidden" value="{{$post->id}}" name="id">
 <div class="form-group">
-    <span>Title: </span>
+    <span>@lang('admin.title'): </span>
     <input type="text" value="{{$post->title}}" name="title">
 </div>
 <div class="form-group">
-    <span>Description: </span>
+    <span>@lang('admin.description'): </span>
     <textarea name="description" id="" cols="30" rows="10">
         {{$post->description}}
     </textarea>
@@ -42,22 +42,22 @@
 
 <div class="infor-3">
     <div class="form-group">
-        <span>Post Day: </span>
+        <span>@lang('admin.post-day'): </span>
     <input type="text" id="datepicker" autocomplete="off" value="{{formatDate($post->created_at)}}" name="created_at" placeholder="Click here to chose">
         <input  type="hidden" name="updated_at" value="{{  now() }}">
     </div>
     <div class="form-group">
-     <span>Thumbnail: </span>
-     <input type="button" class="upimg" value="Update">
+     <span>@lang('admin.thumbnail'): </span>
+     <input type="button" class="upimg" value="@lang('admin.update')">
         <input type="file"  onchange="previewFile()" class="thumbnail" name="image">
     </div>
     <div class="form-group">
-     <span>Category: </span>
+     <span>@lang('admin.category'): </span>
      <select name="category_id">
         @foreach ($categories_create as $category)
         <option value="{{$category->id}}" {{$post->category_id == $category->id ? "selected" : ""}}>{{$category->name}}</option>   
         @endforeach
-      <option value="0">None</option>
+      <option value="0">@lang('admin.none')</option>
      </select>
     </div>
     
@@ -66,18 +66,18 @@
     <img id="thumbnail_image" src="{{$post->thumbnail}}" alt="">
 </div>
 <div class="form-group content">
-<span>Content: </span>
+<span>@lang('admin.content'): </span>
 <div id="editor">
 <textarea name="content"   id="editor-content">
    
 </textarea>
 </div>
 </div>
-<input type="submit" class="submit" value="Update">
+<input type="submit" class="submit" value="@lang('admin.save-change')">
 @include('js.ExistPost')
  @else 
 @include('CreateAdmin.content_create') 
-<input type="submit" class="submit" value="Create">
+<input type="submit" class="submit" value="@lang('admin.create')">
 <script>
     ClassicEditor
    .create( document.querySelector( '#editor-content' ))

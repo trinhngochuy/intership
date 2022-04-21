@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
-class CheckAdmin
+use Illuminate\Support\Facades\App;
+
+class SetLocale
 {
     /**
      * Handle an incoming request.
@@ -16,19 +17,13 @@ class CheckAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Gate::allows('update-post')
-        &&Gate::allows('create-post')
-            &&Gate::allows('list-post-admin')
-          &&Gate::allows('delete-post')
-            &&Gate::allows('create-user')
-           &&Gate::allows('update-user')
-            &&Gate::allows('delete-user')
-    ){
+        if (session()->exists('lang')) {
+            $lang = $request->session()->get('lang');
+            App::setLocale($lang);
+        }
+        else{
+            session(['lang' => 'en']);
+        }
         return $next($request);
-       }
-       else{
-           abort(404);
-       }
-
     }
 }

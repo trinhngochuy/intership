@@ -13,15 +13,17 @@ use Illuminate\Queue\SerializesModels;
 class CreatePost
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-public $email;
+public $post;
+public $user;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($email)
+    public function __construct($post,$user)
     {
-     $this->email = $email;
+     $this->post = $post;
+     $this->user = $user;
     }
 
     /**
