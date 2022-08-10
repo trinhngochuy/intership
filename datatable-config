@@ -1,3 +1,4 @@
+                var table = $(table_element).DataTable(config_datatable);
         table.columns().every(function () {
             var that = this;
             $('input', this.header()).on('keyup change', function () {
