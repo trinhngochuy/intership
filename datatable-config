@@ -1,0 +1,27 @@
+        table.columns().every(function () {
+            var that = this;
+            $('input', this.header()).on('keyup change', function () {
+                that.search('^.*(' + this.value + ').*$', true, false, true).draw();
+                // if (that.search(''this.value) !== this.value) {
+                //     that.search(this.value).draw();
+                // }
+            });
+
+            $('select:not([multiple])', this.header()).on('change', function () {
+                if (that.search() !== this.value) {
+                    that.search(this.value).draw();
+                }
+            });
+
+            $('select[multiple]', this.header()).on('change', function () {
+                that.search('^.*(' + $(this).val().join('|') + ').*$', true, false, true).draw();
+            });
+        });
+
+        // init change status table
+        var collumn_index_number = select != undefined ? 1 : 0;
+        table.on('order.dt search.dt draw.dt', function () {
+            table.column(collumn_index_number, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
